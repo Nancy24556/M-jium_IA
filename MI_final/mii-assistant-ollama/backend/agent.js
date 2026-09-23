@@ -1,6 +1,6 @@
 // agent.js — Logique conversationnelle de Mïjium avec l'API Gemini.
 
-const { GoogleGenAI } = require("@google/genai");
+const { GoogleGenAI } = require('@google/generative-ai');
 const db = require("./db");
 const { buildSystemPrompt } = require("./prompts");
 
