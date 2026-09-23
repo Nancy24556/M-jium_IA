@@ -1,17 +1,14 @@
 // agent.js — Logique conversationnelle de Mïjium avec l'API Gemini.
 
-const { GoogleGenAI } = require('@google/generative-ai');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const db = require("./db");
 const { buildSystemPrompt } = require("./prompts");
 
-// Initialisation du client Google Gen AI (utilise process.env.GEMINI_API_KEY)
-const ai = new GoogleGenAI();
-const MODEL_NAME = "gemini-2.5-flash";
+// Initialisation avec la classe correcte
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const MODEL_NAME = "gemini-1.5-flash";
 const MAX_HISTORY_MESSAGES = 24;
 
-/**
- * Récupère l'historique d'une session au format adapté pour Gemini.
- */
 function getHistory(sessionId) {
   const rows = db
     .prepare(
@@ -42,9 +39,6 @@ function guessActivity(sessionId) {
   return row ? row.activity : null;
 }
 
-/**
- * Envoie le message de l'utilisateur à Mïjium via Gemini.
- */
 async function askMii({ sessionId, userId, userMessage, user }) {
   const history = getHistory(sessionId);
   const systemPrompt = buildSystemPrompt({
@@ -55,20 +49,18 @@ async function askMii({ sessionId, userId, userMessage, user }) {
   });
 
   try {
-    const response = await ai.models.generateContent({
+    const model = genAI.getGenerativeModel({
       model: MODEL_NAME,
-      contents: [
-        ...history,
-        { role: "user", parts: [{ text: userMessage }] }
-      ],
-      config: {
-        systemInstruction: systemPrompt,
-      },
+      systemInstruction: systemPrompt,
     });
 
-    const replyText = response.text || "";
+    const chat = model.startChat({
+      history: history,
+    });
 
-    // Sauvegarde en base de données
+    const result = await chat.sendMessage(userMessage);
+    const replyText = result.response.text() || "";
+
     saveMessage({ sessionId, userId, role: "user", content: userMessage });
     saveMessage({ sessionId, userId, role: "assistant", content: replyText });
 
