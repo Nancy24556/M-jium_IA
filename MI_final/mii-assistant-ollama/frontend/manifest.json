@@ -1,0 +1,13 @@
+{
+  "name": "Mïjium — ton guide pas à pas",
+  "short_name": "Mïjium",
+  "description": "Mïjium t'accompagne étape par étape dans n'importe quelle activité.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F3F4F7",
+  "theme_color": "#21243B",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
