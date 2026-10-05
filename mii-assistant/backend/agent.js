@@ -6,7 +6,7 @@ const { buildSystemPrompt } = require("./prompts");
 
 // Initialisation avec la classe correcte
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const MODEL_NAME = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 const MAX_HISTORY_MESSAGES = 24;
 
 function getHistory(sessionId) {

@@ -20,6 +20,7 @@ const rewardsRoutes = require("./routes/rewards");
 const adminRoutes = require("./routes/admin");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3000;
 
 // --- Vérifications de démarrage ---
@@ -36,7 +37,7 @@ if (!process.env.GEMINI_API_KEY) {
   process.exit(1);
 }
 console.warn(
-  `ℹ️  Mïjium utilise l'API Gemini (modèle "${process.env.GEMINI_MODEL || "gemini-2.5-flash"}"). Aucun serveur local requis.`
+  `ℹ️  Mïjium utilise l'API Gemini (modèle "${process.env.GEMINI_MODEL || "gemini-3.8-flash"}"). Aucun serveur local requis.`
 );
 
 // --- Middlewares globaux ---
