@@ -36,7 +36,7 @@ if (!process.env.GEMINI_API_KEY) {
   process.exit(1);
 }
 console.warn(
-  `ℹ️  Mïjium utilise l'API Gemini (modèle "${process.env.GEMINI_MODEL || "gemini-1.5-flash"}"). Aucun serveur local requis.`
+  `ℹ️  Mïjium utilise l'API Gemini (modèle "${process.env.GEMINI_MODEL || "gemini-2.5-flash"}"). Aucun serveur local requis.`
 );
 
 // --- Middlewares globaux ---

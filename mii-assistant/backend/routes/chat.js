@@ -99,10 +99,7 @@ router.post("/message", requireAuth, async (req, res) => {
   } catch (err) {
     console.error(err);
     if (err.code === "GEMINI_ERROR") {
-      return res.status(502).json({
-        error:
-          "Mïjium n'a pas pu contacter l'IA (Gemini) pour le moment. Vérifiez que GEMINI_API_KEY est correctement configurée et réessayez.",
-      });
+      return res.status(502).json({ error: "Erreur de chargement" });
     }
     res.status(502).json({ error: "Mïjium n'a pas pu répondre pour le moment. Réessayez." });
   }
